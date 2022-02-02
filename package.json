@@ -1,12 +1,13 @@
 {
   "name": "subito-ci",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Make subito micro services CI easy",
   "bin": {
     "init-ci": "./lib/init-ci",
-    "make-app": "./lib/make-app",
-    "make-doc": "./lib/make-doc",
-    "make-types": "./lib/make-types",
+    "build-dist": "./lib/build-dist",
+    "build-doc": "./lib/build-doc",
+    "build-types": "./lib/build-types",
+    "compile-js": "./lib/compile-js",
     "run-tests": "./lib/run-tests"
   },
   "repository": {
