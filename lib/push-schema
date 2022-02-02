@@ -1,0 +1,18 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getGraphqlEndpoint
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSchema
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getShortSlug
+
+bash "$(dirname "${BASH_SOURCE[0]}")"/test-schema
+
+SCHEMA=$(getSchema)
+SLUG=$(getShortSlug)
+ENDPOINT=$(getGraphqlEndpoint)
+
+SCHEMA=$(getSchema)
+
+if [ -z "${!APOLLO_GRAPH_ID}" ]; then
+    echo /!\ Missing env var: APOLLO_GRAPH_ID
+fi
+
+cat graphql/schemas/*.graphql | npx -p @apollo/rover@latest rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"

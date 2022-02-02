@@ -1,0 +1,19 @@
+#!/bin/bash
+# BITBUCKET_BRANCH=dev2
+function getBranch() {
+  # With Bitbucket
+  if [ ! -z "$BITBUCKET_BRANCH" ]; then
+    echo "$BITBUCKET_BRANCH"
+  # With Github
+  elif [ ! -z "$GITHUB_REF_NAME" ]; then
+    echo "$GITHUB_REF_NAME"
+  # With Circle CI
+  elif [ ! -z "$CIRCLE_BRANCH" ]; then
+    echo "$CIRCLE_BRANCH"
+  # With Gitlab
+  elif [ ! -z "$CI_COMMIT_REF_NAME" ]; then
+    echo "$CI_COMMIT_REF_NAME"
+  fi
+}
+
+getBranch

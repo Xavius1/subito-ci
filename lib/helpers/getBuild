@@ -1,0 +1,19 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/getBranch
+
+function getBuild() {
+  if [ -f ./build.txt ]; then
+    BUILD=$(cat ./build.txt)
+  else
+    BRANCH=$(getBranch)
+    if grep -q "master" <<< "$BRANCH"; then
+      BUILD=master
+    elif grep -q "develop" <<< "$BRANCH"; then
+      BUILD=develop
+    else
+      BUILD=current
+    fi 
+    echo "$BUILD" > ./build.txt
+  fi
+  echo "$BUILD"
+}

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function getSlug() {
+  if [ -f ./slug.txt ]; then
+    SLUG="$(cat ./slug.txt)"
+  else
+    # With Bitbucket
+    if [ ! -z "$BITBUCKET_REPO_SLUG" ]; then
+      SLUG="$BITBUCKET_REPO_SLUG"
+    # With Others
+    else
+      SLUG=$(basename -s .git `git config --get remote.origin.url`)
+    fi
+    echo "$SLUG" > ./slug.txt
+  fi
+  echo "$SLUG"
+}
+
+getSlug

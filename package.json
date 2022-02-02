@@ -4,12 +4,16 @@
   "description": "Make subito micro services CI easy",
   "main": "index.js",
   "bin": {
-    "init-ci": "./lib/init-ci",
     "build-dist": "./lib/build-dist",
     "build-doc": "./lib/build-doc",
+    "build-image": "./lib/build-image",
     "build-types": "./lib/build-types",
     "compile-js": "./lib/compile-js",
-    "run-tests": "./lib/run-tests"
+    "init-ci": "./lib/init-ci",
+    "push-image": "./lib/push-image",
+    "push-schema": "./lib/push-schema",
+    "test-js": "./lib/test-js",
+    "test-schema": "./lib/test-schema"
   },
   "repository": {
     "type": "git",

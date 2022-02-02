@@ -1,0 +1,23 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/getBuild
+
+function getBuild() {
+  if [ -f ./tag.txt ]; then
+    TAG="$(cat ./tag.txt)"
+  else
+    BUILD=$(getBuild)
+
+    i=1
+    TAG="${PREFIX}-${i}"
+
+    git fetch --all --tags
+
+    while [[ $(git tag -l "$TAG") ]]
+    do
+      TAG="${BUILD}-${i}"
+      i=$(($i + 1))
+    done
+    echo "$TAG" > ./tag.txt
+  fi
+  echo "$TAG"
+}

@@ -1,0 +1,12 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSchema
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getShortSlug
+
+SCHEMA=$(getSchema)
+SLUG=$(getShortSlug)
+
+if [ -z "${!APOLLO_GRAPH_ID}" ]; then
+    echo /!\ Missing env var: APOLLO_GRAPH_ID
+fi
+
+cat graphql/schemas/*.graphql | npx -p @apollo/rover@latest rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -

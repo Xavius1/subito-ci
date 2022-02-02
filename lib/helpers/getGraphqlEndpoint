@@ -1,0 +1,11 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/getSlug
+
+function getGraphqlEndpoint() {
+  SLUG=$(getSlug)
+  if [ ! -z "${!APOLLO_GRAPH_ENDPOINT}" ]; then
+    echo $(sed "s/<slug>/$getSlug/g" <<< $APOLLO_GRAPH_ENDPOINT)
+  else
+    echo http://"$SLUG"/graphql
+  fi
+}

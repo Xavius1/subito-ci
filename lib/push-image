@@ -1,0 +1,32 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getBuild
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSlug
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getTag
+
+docker load --input ./tmp-image.docker
+
+BUILD=$(getBuild)
+SLUG=$(getSlug)
+TAG=$(getTag)
+
+case "$1" in
+  gcr)
+    # Authenticating with the service account key file
+    echo $GCR_API_KEYFILE > ./gcloud-api-key.json
+    # Login to google docker hub
+    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
+    gcloud auth activate-service-account --key-file gcloud-api-key.json
+    gcloud config set project $CR_PROJECT
+    REGISTRY_URL=${CR_URL}/${CR_PROJECT}
+    ;;
+  *)
+    docker login --password ${CR_PASSWORD} --username ${CR_USERNAME} ${CR_URL}
+    REGISTRY_URL=${CR_URL}/${CR_PROJECT}
+esac
+
+IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
+IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
+docker tag ${SLUG} ${IMAGE} 
+docker tag ${SLUG} ${IMAGE_LATEST} 
+docker push ${IMAGE}
+docker push ${IMAGE_LATEST}

@@ -1,0 +1,6 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getTag
+
+TAG=$(getTag)
+docker build -t $TAG -f Dockerfile .
+docker save --output tmp-image.docker $TAG
