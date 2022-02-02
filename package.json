@@ -1,7 +1,8 @@
 {
   "name": "subito-ci",
-  "version": "0.1.1",
+  "version": "0.1.6",
   "description": "Make subito micro services CI easy",
+  "main": "index.js",
   "bin": {
     "init-ci": "./lib/init-ci",
     "build-dist": "./lib/build-dist",
@@ -20,8 +21,10 @@
     "url": "https://github.com/Xavius1/subito-ci/issues"
   },
   "homepage": "https://github.com/Xavius1/subito-ci#readme",
-  "devDependencies": {
+  "dependencies": {
     "@microsoft/api-documenter": "^7.15.1",
-    "@microsoft/api-extractor": "^7.19.4"
+    "@microsoft/api-extractor": "^7.19.4",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2"
   }
 }
