@@ -1,0 +1,26 @@
+{
+  "name": "subito-ci",
+  "version": "0.1.0",
+  "description": "Make subito micro services CI easy",
+  "bin": {
+    "init-ci": "./lib/init-ci",
+    "make-app": "./lib/make-app",
+    "make-doc": "./lib/make-doc",
+    "make-types": "./lib/make-types",
+    "run-tests": "./lib/run-tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Xavius1/subito-ci.git"
+  },
+  "author": "Xavius",
+  "license": "EUPL-1.2",
+  "bugs": {
+    "url": "https://github.com/Xavius1/subito-ci/issues"
+  },
+  "homepage": "https://github.com/Xavius1/subito-ci#readme",
+  "devDependencies": {
+    "@microsoft/api-documenter": "^7.15.1",
+    "@microsoft/api-extractor": "^7.19.4"
+  }
+}
