@@ -16,6 +16,9 @@
     "test-js": "./lib/test-js",
     "test-schema": "./lib/test-schema"
   },
+  "scripts": {
+    "test": "no test"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/Xavius1/subito-ci.git"
