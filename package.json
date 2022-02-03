@@ -4,6 +4,7 @@
   "description": "Make subito micro services CI easy",
   "main": "index.js",
   "bin": {
+    "audit-js": "./lib/audit-js",
     "build-dist": "./lib/build-dist",
     "build-doc": "./lib/build-doc",
     "build-image": "./lib/build-image",
@@ -28,6 +29,7 @@
   "dependencies": {
     "@microsoft/api-documenter": "^7.15.1",
     "@microsoft/api-extractor": "^7.19.4",
+    "audit-ci": "^5.1.2",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2"
   }
