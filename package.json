@@ -17,7 +17,7 @@
     "test-schema": "./lib/test-schema"
   },
   "scripts": {
-    "test": "no test"
+    "test": "echo 'no test'"
   },
   "repository": {
     "type": "git",
