@@ -6,11 +6,11 @@ function getTag() {
     TAG="$(cat ./tag.txt)"
   else
     BUILD=$(getBuild)
+    
+    git fetch --all --tags
 
     i=1
-    TAG="${PREFIX}-${i}"
-
-    git fetch --all --tags
+    TAG="${BUILD}-${i}"
 
     while [[ $(git tag -l "$TAG") ]]
     do
