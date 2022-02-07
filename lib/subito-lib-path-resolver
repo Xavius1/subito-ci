@@ -12,5 +12,3 @@ function subitoLibPathResolver() {
   DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
   echo "$DIR"
 }
-
-subitoLibPathResolver()
