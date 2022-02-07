@@ -1,7 +1,7 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")"/getBuild
 
-function getBuild() {
+function getTag() {
   if [ -f ./tag.txt ]; then
     TAG="$(cat ./tag.txt)"
   else

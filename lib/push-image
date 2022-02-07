@@ -1,4 +1,5 @@
-#!/bin/bashsource ./subito-lib-path-resolver
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getBuild
 source "$CIPATH"/helpers/getSlug

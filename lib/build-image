@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./subito-lib-path-resolver
+source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getTag
 

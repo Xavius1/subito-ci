@@ -1,4 +1,5 @@
 #!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getGraphqlEndpoint
 source "$CIPATH"/helpers/getSchema
