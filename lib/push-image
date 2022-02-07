@@ -1,7 +1,8 @@
-#!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getBuild
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSlug
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getTag
+#!/bin/bashsource ./subito-lib-path-resolver
+CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getBuild
+source "$CIPATH"/helpers/getSlug
+source "$CIPATH"/helpers/getTag
 
 docker load --input ./tmp-image.docker
 

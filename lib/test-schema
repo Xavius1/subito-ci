@@ -1,6 +1,7 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSchema
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getShortSlug
+CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getSchema
+source "$CIPATH"/helpers/getShortSlug
 
 SCHEMA=$(getSchema)
 SLUG=$(getShortSlug)

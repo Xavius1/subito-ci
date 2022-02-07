@@ -4,6 +4,7 @@
   "description": "Make subito micro services CI easy",
   "main": "index.js",
   "bin": {
+    "subito-lib-path-resolver": "./lib/subito-lib-path-resolver",
     "audit-js": "./lib/audit-js",
     "build-dist": "./lib/build-dist",
     "build-doc": "./lib/build-doc",

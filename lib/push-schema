@@ -1,9 +1,10 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getGraphqlEndpoint
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getSchema
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getShortSlug
+CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getGraphqlEndpoint
+source "$CIPATH"/helpers/getSchema
+source "$CIPATH"/helpers/getShortSlug
 
-bash "$(dirname "${BASH_SOURCE[0]}")"/test-schema
+bash "$CIPATH"/test-schema
 
 SCHEMA=$(getSchema)
 SLUG=$(getShortSlug)

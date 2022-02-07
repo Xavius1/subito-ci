@@ -1,5 +1,7 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/helpers/getTag
+source ./subito-lib-path-resolver
+CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getTag
 
 TAG=$(getTag)
 docker build -t $TAG -f Dockerfile .
