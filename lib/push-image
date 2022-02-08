@@ -1,6 +1,7 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getBranch
 source "$CIPATH"/helpers/getBuild
 source "$CIPATH"/helpers/getSlug
 source "$CIPATH"/helpers/getTag
@@ -25,6 +26,11 @@ case "$1" in
     docker login --password ${CR_PASSWORD} --username ${CR_USERNAME} ${CR_URL}
     REGISTRY_URL=${CR_URL}/${CR_PROJECT}
 esac
+
+BRANCH=$(getBranch)
+git tag -a "$TAG" -m "Tag from CI"
+git pull origin "$BRANCH"
+git push origin "$BRANCH" --tags
 
 IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
 IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest

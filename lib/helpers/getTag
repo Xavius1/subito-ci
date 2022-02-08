@@ -1,5 +1,4 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/getBranch
 source "$(dirname "${BASH_SOURCE[0]}")"/getBuild
 
 function getTag() {
@@ -21,10 +20,5 @@ function getTag() {
     echo "$TAG" > ./tag.txt
   fi
 
-  BRANCH=$(getBranch)
-  git tag -a "${TAG}" -m "Tag from CI"
-  git pull origin "${BRANCH}"
-  git push origin "${BRANCH}" --tags
-  
   echo "$TAG"
 }
