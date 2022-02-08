@@ -15,5 +15,3 @@ function getSlug() {
   fi
   echo "$SLUG"
 }
-
-getSlug

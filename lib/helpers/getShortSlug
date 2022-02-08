@@ -5,5 +5,3 @@ function getShortSlug() {
   SLUG=$(getSlug)
   echo "${SLUG/api-/''}" 
 }
-
-getShortSlug

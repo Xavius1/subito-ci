@@ -15,5 +15,3 @@ function getBranch() {
     echo "$CI_COMMIT_REF_NAME"
   fi
 }
-
-getBranch
