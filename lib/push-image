@@ -27,12 +27,8 @@ case "$1" in
 esac
 
 IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
-echo Image "$IMAGE"
 IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
-echo Image "$IMAGE"
-docker tag ${SLUG} ${IMAGE} 
-echo Tagged
-docker tag ${SLUG} ${IMAGE_LATEST} 
-echo Tagged
+docker tag ${TAG} ${IMAGE} 
+docker tag ${TAG} ${IMAGE_LATEST} 
 docker push ${IMAGE}
 docker push ${IMAGE_LATEST}
