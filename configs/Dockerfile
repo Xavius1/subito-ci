@@ -4,7 +4,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get purge -y --auto-remove git
 RUN mkdir /app
-COPY ./dist /app
+COPY . /app
 
 FROM node:14.17.0-alpine
 LABEL author=xavier@officeriders.com
