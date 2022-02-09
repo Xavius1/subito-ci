@@ -1,4 +1,3 @@
-# Inspired by https://gist.githubusercontent.com/vladgolubev/1c0e9fd4d569446cada21e4a3c64d0f8/raw/94e3887d2c01314033ff74e00d735fade8884118/.yarnclean
 # test directories
 __tests__
 __mocks__
@@ -13,6 +12,7 @@ webpack.config.mjs
 bitbucket-pipelines.yml
 ^(?!@serverless/enterprise-plugin/).*test.*$ # fix for serverless-enterprise
 tests
+test
 powered-test
 *.test.js
 *.tap.js
@@ -20,8 +20,14 @@ powered-test
 *tests.html
 
 # asset directories
-# docs <- need that folder with googleapis
-# doc
+README
+README.md
+README.txt
+CHANGELOG
+CHANGELOG.md
+CHANGELOG.txt
+doc
+docs
 website
 images
 assets
@@ -33,11 +39,24 @@ examples
 # code coverage directories
 coverage
 .nyc_output
+node-gyp
+node-pre-gyp
+gyp
 
 # build scripts
 Makefile
 Gulpfile.js
 Gruntfile.js
+
+robot.html
+.lint
+.npmignore
+Thumbs.db
+.tern-port
+.DS_Store
+desktop.ini
+npm-debug.log 
+.npmrc
 
 # configs
 **/.github/**/*.yml
@@ -48,6 +67,7 @@ Gruntfile.js
 .dist.eslintrc
 .documentup.json
 .editorconfig
+.gitmodules
 .eslintrc
 .eslintrc.js
 .eslintrc.json
@@ -72,6 +92,7 @@ karma-ci.conf.js
 rollup.config.js
 tsconfig.json
 wercker.yml
+builderror.log
 
 # misc
 *.md
@@ -82,12 +103,24 @@ wercker.yml
 *.gif
 *.sln
 *.un~
+*.jst
+*.obj
+*.coffee
+*.gypi
+*.vcxproj
+*.vcxproj.filters
 
 AUTHORS
+CONTRIBUTORS
 CopyrightNotice.txt
 LICENSE-W3C.html
 LICENSE.md
 LICENSE.txt
+LICENSE-MIT
+LICENSE.BSD
+LICENSE-BSD
+LICENSE-jsbn
+LICENSE
 LICENSE-MIT.txt
 MIT-LICENSE
 NOTICE.txt

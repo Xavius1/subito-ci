@@ -4,16 +4,23 @@ CIPATH=$(subitoLibPathResolver)
 
 cp ./package.json ./dist/package.json
 cp ./package-lock.json ./dist/package-lock.json
+
+if [ ! -f ./.yarnclean ]; then
+  cp "$CIPATH"/../configs/.yarnclean ./dist/.yarnclean
+else
+  cp ./.yarnclean ./dist/.yarnclean
+fi
+
 cd ./dist
 
 npm ci --only=production
-npm install -g node-prune
-node-prune
+if test "$1" != '--simple'; then
+  npm install -g node-prune
+  node-prune
+fi
 
 apt-get install -y yarn
-if [ ! -f ./.yarnclean ]; then
-  cp "$CIPATH"/../configs/.yarnclean ./.yarnclean
-fi
+
 yarn import
 yarn autoclean --force
 
