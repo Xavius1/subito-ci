@@ -1,0 +1,15 @@
+Dockerfile
+coverage
+__tests__
+.dockerignore
+.yarnclean
+yarn.lock
+.git*
+.graphql*
+.eslint*
+*.md
+*.yml
+*.txt
+*.cjs
+*.d.ts
+package-lock.json

@@ -1,0 +1,14 @@
+#!/bin/bash
+source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
+CIPATH=$(subitoLibPathResolver)
+
+npm ci --only=production
+npm install -g node-prune
+node-prune
+
+apt-get install -y yarn
+if [ ! -f ./.yarnclean ]; then
+  cp "$CIPATH"/../configs/.yarnclean ./.yarnclean
+fi
+yarn import
+yarn autoclean --force

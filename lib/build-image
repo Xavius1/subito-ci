@@ -4,5 +4,13 @@ CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getTag
 
 TAG=$(getTag)
-docker build -t $TAG -f Dockerfile .
+
+if [ ! -f ./.dockerinore ]; then
+  cp "$CIPATH"/../configs/.dockerinore ./.dockerinore
+fi
+if [ ! -f ./Dockerfile ]; then
+  cp "$CIPATH"/../configs/Dockerfile ./Dockerfile
+fi
+
+docker build -t $TAG -f Dockerfile ./dist
 docker save --output tmp-image.docker $TAG

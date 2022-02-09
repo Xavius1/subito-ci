@@ -5,17 +5,18 @@
   "main": "index.js",
   "bin": {
     "subito-lib-path-resolver": "./lib/subito-lib-path-resolver",
-    "audit-js": "./lib/audit-js",
-    "build-dist": "./lib/build-dist",
-    "build-doc": "./lib/build-doc",
-    "build-image": "./lib/build-image",
-    "build-types": "./lib/build-types",
-    "compile-js": "./lib/compile-js",
-    "init-ci": "./lib/init-ci",
-    "push-image": "./lib/push-image",
-    "push-schema": "./lib/push-schema",
-    "test-js": "./lib/test-js",
-    "test-schema": "./lib/test-schema"
+    "subito-audit-js": "./lib/audit-js",
+    "subito-build-dist": "./lib/build-dist",
+    "subito-build-doc": "./lib/build-doc",
+    "subito-build-image": "./lib/build-image",
+    "subito-build-types": "./lib/build-types",
+    "subito-compile-js": "./lib/compile-js",
+    "subito-init-ci": "./lib/init-ci",
+    "subito-optim-modules": "./lib/optim-modules",
+    "subito-push-image": "./lib/push-image",
+    "subito-push-schema": "./lib/push-schema",
+    "subito-test-js": "./lib/test-js",
+    "subito-test-schema": "./lib/test-schema"
   },
   "scripts": {
     "test": "echo 'no test'"
