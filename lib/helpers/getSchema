@@ -4,8 +4,8 @@ source "$(dirname "${BASH_SOURCE[0]}")"/toUpperCase
 
 function getSchema() {
   VARIANT=APOLLO_GRAPH_VARIANT_"$(toUpperCase $(getBranch))"
-  if [ ! -z "${!VARIANT}" ]; then
-    echo "${!VARIANT}"
+  if [ ! -z "$VARIANT" ]; then
+    echo "$VARIANT"
   else
     case "$BRANCH" in
       master)

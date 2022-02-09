@@ -9,7 +9,10 @@ SLUG=$(getShortSlug)
 
 if [ -z "$APOLLO_GRAPH_ID" ]; then
     echo /!\ Missing env var: APOLLO_GRAPH_ID
+    exit 1
 fi
+
+npm install @apollo/rover
 
 cd src/
 cat graphql/schemas/*.graphql | npx rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
