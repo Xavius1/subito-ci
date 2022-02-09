@@ -7,7 +7,7 @@ source "$CIPATH"/helpers/getShortSlug
 SCHEMA=$(getSchema)
 SLUG=$(getShortSlug)
 
-if [ -z "${!APOLLO_GRAPH_ID}" ]; then
+if [ -z "$APOLLO_GRAPH_ID" ]; then
     echo /!\ Missing env var: APOLLO_GRAPH_ID
 fi
 

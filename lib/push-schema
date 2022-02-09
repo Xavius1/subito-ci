@@ -13,7 +13,7 @@ ENDPOINT=$(getGraphqlEndpoint)
 
 SCHEMA=$(getSchema)
 
-if [ -z "${!APOLLO_GRAPH_ID}" ]; then
+if [ -z "$APOLLO_GRAPH_ID" ]; then
     echo /!\ Missing env var: APOLLO_GRAPH_ID
 fi
 cd ./src/
