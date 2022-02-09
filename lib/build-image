@@ -6,7 +6,9 @@ source "$CIPATH"/helpers/getTag
 TAG=$(getTag)
 
 if [ ! -f ./.dockerignore ]; then
-  cp "$CIPATH"/../configs/.dockerignore ./.dockerignore
+  cp "$CIPATH"/../configs/.dockerignore ./dist/.dockerignore
+else
+  cp ./.dockerignore ./dist/.dockerignore
 fi
 if [ ! -f ./Dockerfile ]; then
   cp "$CIPATH"/../configs/Dockerfile ./Dockerfile
