@@ -12,6 +12,4 @@ if [ -z "$APOLLO_GRAPH_ID" ]; then
     exit 1
 fi
 
-cd src/
-cat graphql/schemas/*.graphql | npx -p @apollo/rover@latest rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
-cd ../
+cat ./src/graphql/schemas/*.graphql | npx rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
