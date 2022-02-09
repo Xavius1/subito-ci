@@ -21,7 +21,7 @@ powered-test
 
 # asset directories
 # docs <- need that folder with googleapis
-doc
+# doc
 website
 images
 assets
