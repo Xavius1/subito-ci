@@ -16,5 +16,6 @@ SCHEMA=$(getSchema)
 if [ -z "${!APOLLO_GRAPH_ID}" ]; then
     echo /!\ Missing env var: APOLLO_GRAPH_ID
 fi
-
-cat graphql/schemas/*.graphql | npx -p @apollo/rover@latest rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"
+cd ./src/
+cat graphql/schemas/*.graphql | npx rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"
+cd ../
