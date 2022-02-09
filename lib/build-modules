@@ -2,6 +2,10 @@
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 
+cp ./package.json ./dist/package.json
+cp ./package-lock.json ./dist/package-lock.json
+cd ./dist
+
 npm ci --only=production
 npm install -g node-prune
 node-prune
@@ -12,3 +16,5 @@ if [ ! -f ./.yarnclean ]; then
 fi
 yarn import
 yarn autoclean --force
+
+cd ../
