@@ -1,5 +1,5 @@
 #!/bin/bash
 
 function toUpperCase() {
-  echo $(echo $1 | tr 'a-z' 'A-Z')
+  echo $(echo $1 | tr 'a-z0-9-' 'A-Z0-9-')
 }
