@@ -3,5 +3,9 @@ source "$(dirname "${BASH_SOURCE[0]}")"/getSlug
 
 function getShortSlug() {
   SLUG=$(getSlug)
-  echo "${SLUG/api-/''}" 
+  PREFIX=api-
+  if [ ! -z "$APOLLO_GRAPH_SERVICE_PREFIX" ]; then
+    PREFIX="$APOLLO_GRAPH_SERVICE_PREFIX"
+  fi
+  echo "${SLUG/$PREFIX/''}" 
 }
