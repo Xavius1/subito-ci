@@ -13,5 +13,7 @@ if [ -z "$APOLLO_GRAPH_ID" ]; then
 fi
 
 npm config set ignore-scripts false
-cat ./src/graphql/schemas/*.graphql | npx -p @apollo/rover@latest rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
+npm install @apollo/rover
 npm config set ignore-scripts true
+
+cat ./src/graphql/schemas/*.graphql | npx rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
