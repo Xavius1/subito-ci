@@ -33,7 +33,7 @@
   "homepage": "https://github.com/Xavius1/subito-ci#readme",
   "dependencies": {
     "@apollo/rover": "0.4.1",
-    "@microsoft/api-documenter": "^7.15.1",
+    "@microsoft/api-documenter": "^7.15.2",
     "@microsoft/api-extractor": "^7.19.4",
     "audit-ci": "^5.1.2",
     "webpack": "^5.68.0",
