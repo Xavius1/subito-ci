@@ -1,4 +1,4 @@
-FROM node:14.17.0-slim as builder
+FROM node:14.19.3-slim as builder
 RUN apt-get update \
     && apt-get install -y git --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
@@ -6,7 +6,7 @@ RUN apt-get update \
 RUN mkdir /app
 COPY . /app
 
-FROM node:14.17.0-alpine
+FROM node:14.19.3-alpine
 LABEL author=xavier@officeriders.com
 RUN \
     apk add --update \
