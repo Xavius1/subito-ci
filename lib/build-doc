@@ -1,3 +1,4 @@
 #!/bin/bash
 
+mkdir ./temp/
 npx api-documenter markdown -i temp -o doc/
