@@ -1,3 +1,4 @@
 #!/bin/bash
 
-webpack --config=webpack.config.mjs
+# webpack --config=webpack.config.mjs
+npx tsc -p tsconfig.dist.json
