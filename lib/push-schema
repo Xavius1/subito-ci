@@ -23,4 +23,15 @@ if [ -z "$APOLLO_KEY" ]; then
     exit 1
 fi
 
-cat ./src/graphql/schemas/*.gql | npx rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"
+PUSH=$(cat ./src/graphql/schemas/*.gql | npx rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT" 2>&1 > /dev/null)
+if grep -q "error" <<< "$PUSH"; then
+  echo "$CHECK"
+  echo Schema push failed
+  exit 1
+elif grep -q "FAIL" <<< "$PUSH"; then
+  echo "$CHECK"
+  echo Schema push failed
+  exit 1
+else
+  echo "$PUSH"
+fi

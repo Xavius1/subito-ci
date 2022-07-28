@@ -17,4 +17,15 @@ if [ -z "$APOLLO_KEY" ]; then
     exit 1
 fi
 
-cat ./src/graphql/schemas/*.gql | npx rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema -
+CHECK=$(cat ./src/graphql/schemas/*.gql | npx rover subgraph check "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - 2>&1 > /dev/null)
+if grep -q "error" <<< "$CHECK"; then
+  echo "$CHECK"
+  echo Schema checking failed
+  exit 1
+elif grep -q "FAIL" <<< "$CHECK"; then
+  echo "$CHECK"
+  echo Schema checking failed
+  exit 1
+else
+  echo "$CHECK"
+fi
