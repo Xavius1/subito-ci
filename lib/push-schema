@@ -23,4 +23,4 @@ if [ -z "$APOLLO_KEY" ]; then
     exit 1
 fi
 
-cat ./src/graphql/schemas/*.graphql | npx rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"
+cat ./src/graphql/schemas/*.gql | npx rover subgraph publish "$APOLLO_GRAPH_ID"@"$SCHEMA" --name $SLUG --schema - --routing-url "$ENDPOINT"
