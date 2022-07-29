@@ -1,18 +1,15 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
-CIPATH=$(subitoLibPathResolver)
-source "$CIPATH"/helpers/getBranch
-source "$CIPATH"/helpers/getBuild
-source "$CIPATH"/helpers/getSlug
-source "$CIPATH"/helpers/getTag
+# source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
+# CIPATH=$(subitoLibPathResolver)
+# source "$CIPATH"/helpers/getBranch
+# source "$CIPATH"/helpers/getBuild
+# source "$CIPATH"/helpers/getSlug
+# source "$CIPATH"/helpers/getTag
 
 # docker load --input ./tmp-image.docker
-BUILD=$(getBuild)
-SLUG=$(getSlug)
-TAG=$(getTag)
-echo "$BUILD"
-echo "$SLUG"
-echo "$TAG"
+# BUILD=$(getBuild)
+# SLUG=$(getSlug)
+# TAG=$(getTag)
 
 # case "$1" in
 #   gcr)
@@ -39,3 +36,28 @@ echo "$TAG"
 # docker tag ${TAG} ${IMAGE_LATEST} 
 # docker push ${IMAGE}
 # docker push ${IMAGE_LATEST}
+
+
+docker load --input ./tmp-image.docker
+
+# Authenticating with the service account key file
+echo $GCLOUD_API_KEYFILE > ./gcloud-api-key.json
+gcloud auth activate-service-account --key-file gcloud-api-key.json
+gcloud config set project $GCLOUD_PROJECT
+
+# Tag container & push
+TAG="$(cat ./tag.txt)"
+BUILD="$(cat ./build.txt)"
+
+SUFFIX=$([[ ! -z "$TAG" ]] && echo ":$TAG" || echo "")
+IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}${SUFFIX}
+IMAGE_NAME_LATEST=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}:${BUILD}-latest
+
+docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME} 
+docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME_LATEST} 
+
+# Login to google docker hub
+cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin https://gcr.io
+# echo ${IMAGE_NAME}
+docker push ${IMAGE_NAME}
+docker push ${IMAGE_NAME_LATEST}
