@@ -1,15 +1,15 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
-CIPATH=$(subitoLibPathResolver)
-source "$CIPATH"/helpers/getBranch
-source "$CIPATH"/helpers/getBuild
-source "$CIPATH"/helpers/getSlug
-source "$CIPATH"/helpers/getTag
+# source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
+# CIPATH=$(subitoLibPathResolver)
+# source "$CIPATH"/helpers/getBranch
+# source "$CIPATH"/helpers/getBuild
+# source "$CIPATH"/helpers/getSlug
+# source "$CIPATH"/helpers/getTag
 
 docker load --input ./tmp-image.docker
-BUILD=$(getBuild)
-SLUG=$(getSlug)
-TAG=$(getTag)
+# BUILD=$(getBuild)
+# SLUG=$(getSlug)
+# TAG=$(getTag)
 
 # case "$1" in
 #   gcr)
