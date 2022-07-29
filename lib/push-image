@@ -1,5 +1,4 @@
 #!/bin/bash
-echo ici
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 echo ici2
 CIPATH=$(subitoLibPathResolver)
