@@ -5,42 +5,34 @@ source "$CIPATH"/helpers/getBranch
 source "$CIPATH"/helpers/getBuild
 source "$CIPATH"/helpers/getSlug
 source "$CIPATH"/helpers/getTag
-echo ici7
 
 docker load --input ./tmp-image.docker
-echo ici8
 BUILD=$(getBuild)
-echo ici9
 SLUG=$(getSlug)
-echo ici10
 TAG=$(getTag)
-echo ici11
 
-case "$1" in
-  gcr)
-    # Authenticating with the service account key file
-    echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
-    # Login to google docker hub
-    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
-    gcloud auth activate-service-account --key-file gcloud-api-key.json
-    echo ici12
-    gcloud config set project ${CR_PROJECT}
-    echo ici13
-    ;;
-  *)
-    echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
-esac
+# case "$1" in
+#   gcr)
+#     # Authenticating with the service account key file
+#     echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
+#     # Login to google docker hub
+#     cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
+#     gcloud auth activate-service-account --key-file gcloud-api-key.json
+#     gcloud config set project ${CR_PROJECT}
+#     ;;
+#   *)
+#     echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
+# esac
 
-REGISTRY_URL=${CR_URL}/${CR_PROJECT}
-BRANCH=$(getBranch)
-git tag -a "$TAG" -m "Tag from CI"
-git pull origin "$BRANCH"
-git push origin "$BRANCH" --tags
+# REGISTRY_URL=${CR_URL}/${CR_PROJECT}
+# BRANCH=$(getBranch)
+# git tag -a "$TAG" -m "Tag from CI"
+# git pull origin "$BRANCH"
+# git push origin "$BRANCH" --tags
 
-IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
-IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
-docker tag ${TAG} ${IMAGE} 
-echo ici14
-docker tag ${TAG} ${IMAGE_LATEST} 
-docker push ${IMAGE}
-docker push ${IMAGE_LATEST}
+# IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
+# IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
+# docker tag ${TAG} ${IMAGE} 
+# docker tag ${TAG} ${IMAGE_LATEST} 
+# docker push ${IMAGE}
+# docker push ${IMAGE_LATEST}
