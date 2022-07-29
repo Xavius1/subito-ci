@@ -17,8 +17,8 @@ case "$1" in
     echo $GCR_API_KEYFILE > ./gcloud-api-key.json
     # Login to google docker hub
     gcloud auth activate-service-account --key-file gcloud-api-key.json
-    gcloud config set project ${CR_PROJECT}
-    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
+    gcloud config set project $CR_PROJECT
+    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin $CR_URL
     ;;
   *)
     echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
