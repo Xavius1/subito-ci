@@ -8,6 +8,9 @@ function getSchema() {
     echo "${!VARIANT}"
   else
     case "$BRANCH" in
+      main)
+        echo production
+        ;;
       master)
         echo production
         ;;
@@ -19,12 +22,6 @@ function getSchema() {
         ;;
       develop*)
         echo develop
-        ;;
-      feature*)
-        echo current
-        ;;
-      bugfix*)
-        echo current
         ;;
       *)
         echo current
