@@ -1,14 +1,9 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
-echo ici2
 CIPATH=$(subitoLibPathResolver)
-echo ici3
 source "$CIPATH"/helpers/getBranch
-echo ici4
 source "$CIPATH"/helpers/getBuild
-echo ici5
 source "$CIPATH"/helpers/getSlug
-echo ici6
 source "$CIPATH"/helpers/getTag
 echo ici7
 
