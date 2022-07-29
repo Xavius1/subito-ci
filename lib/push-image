@@ -14,7 +14,7 @@ TAG=$(getTag)
 case "$1" in
   gcr)
     # Authenticating with the service account key file
-    echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
+    echo "$GCLOUD_API_KEYFILE" > ./gcloud-api-key.json
     cat ./gcloud-api-key.json
     echo ${CR_URL}
     # Login to google docker hub
