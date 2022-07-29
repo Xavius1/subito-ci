@@ -1,63 +1,63 @@
 #!/bin/bash
-# source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
-# CIPATH=$(subitoLibPathResolver)
-# source "$CIPATH"/helpers/getBranch
-# source "$CIPATH"/helpers/getBuild
-# source "$CIPATH"/helpers/getSlug
-# source "$CIPATH"/helpers/getTag
-
-# docker load --input ./tmp-image.docker
-# BUILD=$(getBuild)
-# SLUG=$(getSlug)
-# TAG=$(getTag)
-
-# case "$1" in
-#   gcr)
-#     # Authenticating with the service account key file
-#     echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
-#     # Login to google docker hub
-#     cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
-#     gcloud auth activate-service-account --key-file gcloud-api-key.json
-#     gcloud config set project ${CR_PROJECT}
-#     ;;
-#   *)
-#     echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
-# esac
-
-# REGISTRY_URL=${CR_URL}/${CR_PROJECT}
-# BRANCH=$(getBranch)
-# git tag -a "$TAG" -m "Tag from CI"
-# git pull origin "$BRANCH"
-# git push origin "$BRANCH" --tags
-
-# IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
-# IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
-# docker tag ${TAG} ${IMAGE} 
-# docker tag ${TAG} ${IMAGE_LATEST} 
-# docker push ${IMAGE}
-# docker push ${IMAGE_LATEST}
-
+source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
+CIPATH=$(subitoLibPathResolver)
+source "$CIPATH"/helpers/getBranch
+source "$CIPATH"/helpers/getBuild
+source "$CIPATH"/helpers/getSlug
+source "$CIPATH"/helpers/getTag
 
 docker load --input ./tmp-image.docker
+BUILD=$(getBuild)
+SLUG=$(getSlug)
+TAG=$(getTag)
 
-# Authenticating with the service account key file
-echo $GCLOUD_API_KEYFILE > ./gcloud-api-key.json
-gcloud auth activate-service-account --key-file gcloud-api-key.json
-gcloud config set project $GCLOUD_PROJECT
+case "$1" in
+  gcr)
+    # Authenticating with the service account key file
+    echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
+    # Login to google docker hub
+    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
+    gcloud auth activate-service-account --key-file gcloud-api-key.json
+    gcloud config set project ${CR_PROJECT}
+    ;;
+  *)
+    echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
+esac
 
-# Tag container & push
-TAG="$(cat ./tag.txt)"
-BUILD="$(cat ./build.txt)"
+REGISTRY_URL=${CR_URL}/${CR_PROJECT}
+BRANCH=$(getBranch)
+git tag -a "$TAG" -m "Tag from CI"
+git pull origin "$BRANCH"
+git push origin "$BRANCH" --tags
 
-SUFFIX=$([[ ! -z "$TAG" ]] && echo ":$TAG" || echo "")
-IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}${SUFFIX}
-IMAGE_NAME_LATEST=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}:${BUILD}-latest
+IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
+IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
+docker tag ${TAG} ${IMAGE} 
+docker tag ${TAG} ${IMAGE_LATEST} 
+docker push ${IMAGE}
+docker push ${IMAGE_LATEST}
 
-docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME} 
-docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME_LATEST} 
 
-# Login to google docker hub
-cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin https://gcr.io
-# echo ${IMAGE_NAME}
-docker push ${IMAGE_NAME}
-docker push ${IMAGE_NAME_LATEST}
+# docker load --input ./tmp-image.docker
+
+# # Authenticating with the service account key file
+# echo $GCLOUD_API_KEYFILE > ./gcloud-api-key.json
+# gcloud auth activate-service-account --key-file gcloud-api-key.json
+# gcloud config set project $GCLOUD_PROJECT
+
+# # Tag container & push
+# TAG="$(cat ./tag.txt)"
+# BUILD="$(cat ./build.txt)"
+
+# SUFFIX=$([[ ! -z "$TAG" ]] && echo ":$TAG" || echo "")
+# IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}${SUFFIX}
+# IMAGE_NAME_LATEST=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}:${BUILD}-latest
+
+# docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME} 
+# docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME_LATEST} 
+
+# # Login to google docker hub
+# cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin https://gcr.io
+# # echo ${IMAGE_NAME}
+# docker push ${IMAGE_NAME}
+# docker push ${IMAGE_NAME_LATEST}
