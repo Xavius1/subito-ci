@@ -11,55 +11,55 @@ BUILD=$(getBuild)
 SLUG=$(getSlug)
 TAG=$(getTag)
 
-case "$1" in
-  gcr)
-    # Authenticating with the service account key file
-    echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
-    cat ./gcloud-api-key.json
-    echo ${CR_URL}
-    # Login to google docker hub
-    gcloud auth activate-service-account --key-file gcloud-api-key.json
-    gcloud config set project ${CR_PROJECT}
-    cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
-    ;;
-  *)
-    echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
-esac
+# case "$1" in
+#   gcr)
+#     # Authenticating with the service account key file
+#     echo "$GCR_API_KEYFILE" > ./gcloud-api-key.json
+#     cat ./gcloud-api-key.json
+#     echo ${CR_URL}
+#     # Login to google docker hub
+#     gcloud auth activate-service-account --key-file gcloud-api-key.json
+#     gcloud config set project ${CR_PROJECT}
+#     cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin ${CR_URL}
+#     ;;
+#   *)
+#     echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
+# esac
 
-REGISTRY_URL=${CR_URL}/${CR_PROJECT}
-BRANCH=$(getBranch)
-git tag -a "$TAG" -m "Tag from CI"
-git pull origin "$BRANCH"
-git push origin "$BRANCH" --tags
+# REGISTRY_URL=${CR_URL}/${CR_PROJECT}
+# BRANCH=$(getBranch)
+# git tag -a "$TAG" -m "Tag from CI"
+# git pull origin "$BRANCH"
+# git push origin "$BRANCH" --tags
 
-IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
-IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
-docker tag ${TAG} ${IMAGE} 
-docker tag ${TAG} ${IMAGE_LATEST} 
-docker push ${IMAGE}
-docker push ${IMAGE_LATEST}
+# IMAGE="$REGISTRY_URL"/"$SLUG":"$TAG"
+# IMAGE_LATEST="$REGISTRY_URL"/"$SLUG":"$BUILD"-latest
+# docker tag ${TAG} ${IMAGE} 
+# docker tag ${TAG} ${IMAGE_LATEST} 
+# docker push ${IMAGE}
+# docker push ${IMAGE_LATEST}
 
 
 # docker load --input ./tmp-image.docker
 
 # # Authenticating with the service account key file
-# echo $GCLOUD_API_KEYFILE > ./gcloud-api-key.json
-# gcloud auth activate-service-account --key-file gcloud-api-key.json
-# gcloud config set project $GCLOUD_PROJECT
+echo $GCLOUD_API_KEYFILE > ./gcloud-api-key.json
+gcloud auth activate-service-account --key-file gcloud-api-key.json
+gcloud config set project $GCLOUD_PROJECT
 
 # # Tag container & push
 # TAG="$(cat ./tag.txt)"
 # BUILD="$(cat ./build.txt)"
 
-# SUFFIX=$([[ ! -z "$TAG" ]] && echo ":$TAG" || echo "")
-# IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}${SUFFIX}
-# IMAGE_NAME_LATEST=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}:${BUILD}-latest
+SUFFIX=$([[ ! -z "$TAG" ]] && echo ":$TAG" || echo "")
+IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}${SUFFIX}
+IMAGE_NAME_LATEST=gcr.io/${GCLOUD_PROJECT}/${BITBUCKET_REPO_SLUG}:${BUILD}-latest
 
-# docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME} 
-# docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME_LATEST} 
+docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME} 
+docker tag ${BITBUCKET_REPO_SLUG} ${IMAGE_NAME_LATEST} 
 
-# # Login to google docker hub
-# cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin https://gcr.io
-# # echo ${IMAGE_NAME}
-# docker push ${IMAGE_NAME}
-# docker push ${IMAGE_NAME_LATEST}
+# Login to google docker hub
+cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin https://gcr.io
+# echo ${IMAGE_NAME}
+docker push ${IMAGE_NAME}
+docker push ${IMAGE_NAME_LATEST}
