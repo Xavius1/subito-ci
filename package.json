@@ -1,6 +1,6 @@
 {
   "name": "subito-ci",
-  "version": "0.1.36",
+  "version": "0.1.37-0",
   "description": "Make subito micro services CI easy",
   "main": "index.js",
   "bin": {
