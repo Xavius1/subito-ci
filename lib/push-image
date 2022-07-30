@@ -18,7 +18,6 @@ if [[ "$1" == gcr ]]; then
     gcloud auth activate-service-account --key-file gcloud-api-key.json
     gcloud config set project $CR_PROJECT
     cat ./gcloud-api-key.json | docker login -u _json_key --password-stdin $CR_URL
-    ;;
 else
     echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
 fi
