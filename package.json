@@ -14,6 +14,7 @@
     "subito-compile-js": "./lib/compile-js",
     "subito-init-ci": "./lib/init-ci",
     "subito-push-image": "./lib/push-image",
+    "subito-push-image-gcr": "./lib/push-image-gcr",
     "subito-push-schema": "./lib/push-schema",
     "subito-test-js": "./lib/test-js",
     "subito-test-schema": "./lib/test-schema"
