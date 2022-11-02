@@ -7,7 +7,7 @@ function getTag() {
   else
     BUILD=$(getBuild)
     
-    TAGS=$(git fetch --all --tags)
+    git fetch --all --tags
 
     i=1
     TAG="${BUILD}-${i}"
