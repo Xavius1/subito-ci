@@ -1,14 +1,14 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")"/getBuild
 
+git fetch --all --tags
+
 function getTag() {
   if [ -f ./tag.txt ]; then
     TAG="$(cat ./tag.txt)"
   else
     BUILD=$(getBuild)
     
-    git fetch --all --tags
-
     i=1
     TAG="${BUILD}-${i}"
 

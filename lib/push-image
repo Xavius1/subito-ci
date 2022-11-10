@@ -5,11 +5,12 @@ source "$CIPATH"/helpers/getBranch
 source "$CIPATH"/helpers/getBuild
 source "$CIPATH"/helpers/getSlug
 source "$CIPATH"/helpers/getTag
+source "$CIPATH"/helpers/getTag
 
 docker load --input ./tmp-image.docker
 BUILD=$(getBuild)
 SLUG=$(getSlug)
-TAG=$(getTag)
+TAG=$(toLowerCase $(getTag))
 
 echo "$CR_PASSWORD" | docker login -u ${CR_USERNAME} --password-stdin ${CR_URL}
 
