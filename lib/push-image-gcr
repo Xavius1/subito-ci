@@ -9,7 +9,7 @@ source "$CIPATH"/helpers/getTag
 docker load --input ./tmp-image.docker
 BUILD=$(getBuild)
 SLUG=$(getSlug)
-TAG=$(toLowerCase $(getTag))
+TAG=$(getTag)
 
 # Authenticating with the service account key file
 echo $GCR_API_KEYFILE > ./gcloud-api-key.json
