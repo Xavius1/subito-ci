@@ -13,7 +13,7 @@ fi
 
 cd ./dist
 
-npm ci --only=production
+npm ci --omit=dev
 if test "$1" != '--simple'; then
   npm install -g node-prune
   node-prune
