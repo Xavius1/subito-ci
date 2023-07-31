@@ -6,10 +6,20 @@ source "$CIPATH"/helpers/getBuild
 source "$CIPATH"/helpers/getSlug
 source "$CIPATH"/helpers/getTag
 
-docker load --input ./tmp-image.docker
+# Variables par défaut
+TMP_IMAGE="tmp-image.docker"
+TAG_SUFFIX=""
+
 BUILD=$(getBuild)
 SLUG=$(getSlug)
 TAG=$(getTag)
+if [ ! -z "$TAG_SUFFIX" ]; then
+    TAG="$TAG-$TAG_SUFFIX"
+    TMP_IMAGE="tmp-image-$TAG_SUFFIX.docker"
+
+fi
+
+docker load --input ./"$TMP_IMAGE"
 
 # Authenticating with the service account key file
 echo $GCR_API_KEYFILE > ./gcloud-api-key.json

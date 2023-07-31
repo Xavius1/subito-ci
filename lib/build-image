@@ -13,6 +13,7 @@ print_usage() {
 # Variables par défaut
 DOCKERFILE="Dockerfile"
 TAG_SUFFIX=""
+TMP_IMAGE="tmp-image.docker"
 
 # Traitement des options de ligne de commande
 while [[ $# -gt 0 ]]; do
@@ -46,6 +47,7 @@ source "$CIPATH"/helpers/getTag
 TAG=$(getTag)
 if [ ! -z "$TAG_SUFFIX" ]; then
     TAG="$TAG-$TAG_SUFFIX"
+    TMP_IMAGE="tmp-image-$TAG_SUFFIX.docker"
 fi
 
 if [ ! -f ./.dockerignore ]; then
@@ -61,4 +63,4 @@ if [ ! -f "$DOCKERFILE" ]; then
 fi
 
 docker build -t "$TAG" -f "$DOCKERFILE" .
-docker save --output tmp-image.docker "$TAG"
+docker save --output "$TMP_IMAGE" "$TAG"
