@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Fonction d'affichage de l'aide
+print_usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -t, --tag-suffix SUFFIX   Ajoute un suffixe au tag de l'image"
+    echo "  -h, --help            Affiche l'aide"
+    exit 1
+}
+
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getBranch
@@ -9,6 +19,26 @@ source "$CIPATH"/helpers/getTag
 # Variables par défaut
 TMP_IMAGE="tmp-image.docker"
 TAG_SUFFIX=""
+
+# Traitement des options de ligne de commande
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        -t|--tag-suffix)
+            TAG_SUFFIX="$2"
+            shift
+            shift
+            ;;
+        -h|--help)
+            print_usage
+            ;;
+        *)
+            echo "Option inconnue: $1"
+            print_usage
+            ;;
+    esac
+done
 
 BUILD=$(getBuild)
 SLUG=$(getSlug)
