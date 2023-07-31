@@ -1,9 +1,52 @@
 #!/bin/bash
+
+# Fonction d'affichage de l'aide
+print_usage() {
+    echo "Usage: $0 [options]"
+    echo "Options:"
+    echo "  -f, --file FILE       Spécifie le nom du fichier Dockerfile (par défaut: Dockerfile)"
+    echo "  -t, --tag-suffix SUFFIX   Ajoute un suffixe au tag de l'image"
+    echo "  -h, --help            Affiche l'aide"
+    exit 1
+}
+
+# Variables par défaut
+DOCKERFILE="Dockerfile"
+TAG_SUFFIX=""
+
+# Traitement des options de ligne de commande
+while [[ $# -gt 0 ]]; do
+    key="$1"
+
+    case $key in
+        -f|--file)
+            DOCKERFILE="$2"
+            shift
+            shift
+            ;;
+        -t|--tag-suffix)
+            TAG_SUFFIX="$2"
+            shift
+            shift
+            ;;
+        -h|--help)
+            print_usage
+            ;;
+        *)
+            echo "Option inconnue: $1"
+            print_usage
+            ;;
+    esac
+done
+
 source "$(dirname "${BASH_SOURCE[0]}")"/subito-lib-path-resolver
 CIPATH=$(subitoLibPathResolver)
 source "$CIPATH"/helpers/getTag
 
 TAG=$(getTag)
+if [ ! -z "$TAG_SUFFIX" ]; then
+    TAG="$TAG-$TAG_SUFFIX"
+fi
 
 if [ ! -f ./.dockerignore ]; then
   cp "$CIPATH"/../configs/.dockerignore ./dist/.dockerignore
@@ -13,6 +56,9 @@ fi
 if [ ! -f ./Dockerfile ]; then
   cp "$CIPATH"/../configs/Dockerfile ./Dockerfile
 fi
+if [ ! -f "$DOCKERFILE" ]; then
+  cp "$CIPATH"/../configs/"$DOCKERFILE" ./"$DOCKERFILE"
+fi
 
-docker build -t "$TAG" -f Dockerfile .
+docker build -t "$TAG" -f "$DOCKERFILE" .
 docker save --output tmp-image.docker "$TAG"
